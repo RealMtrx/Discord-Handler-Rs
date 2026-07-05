@@ -1,68 +1,52 @@
-# Discord Handler (Rust)
+# Discord Handler Rust
 
-A modern, feature-rich Discord bot handler built with [Serenity](https://github.com/serenity-rs/serenity) (Rust), featuring both slash commands and prefix commands with a robust modular architecture designed for scalability and maintainability.
+A modern, feature-rich Discord bot handler built with **Serenity**, featuring both slash commands and prefix commands with a robust modular architecture designed for scalability and maintainability.
 
-## Features
+## 🚀 Features
 
 - **Dual Command System**: Support for both slash commands and prefix commands
 - **Modular Architecture**: Clean separation of concerns with dedicated handlers
-- **Anti-Crash System**: Comprehensive error handling and monitoring via panic hooks
-- **Event-Driven**: Fully event-driven architecture
-- **Webhook Logging**: Real-time logging for errors, commands, guild events, and bot status
-- **MongoDB Integration**: Persistent data storage with the official MongoDB driver
+- **Anti-Crash System**: Panic hooks and comprehensive error handling
+- **Event-Driven**: Fully event-driven async architecture
+- **Webhook Logging**: Real-time logging for errors and guild events
+- **MongoDB Integration**: Persistent data storage with mongodb driver
 - **Cooldown System**: Per-command cooldown management
+- **Environment Configuration**: Secure configuration via dotenv
 
-## Project Structure
+## 📁 Project Structure
 
 ```
-Discord-Handler/
-├── Cargo.toml                  # Rust project dependencies
-├── .env.example                # Environment variables template
-├── src/
-│   ├── main.rs                 # Main bot entry point
-│   ├── config.rs               # Bot configuration (env vars)
-│   ├── bot.rs                  # Bot struct, commands registry, event handler
-│   ├── core/                   # Core utilities and webhooks
-│   │   ├── mod.rs
-│   │   ├── emojis.rs           # Centralized emoji definitions
-│   │   ├── cooldown.rs         # Per-command cooldown manager
-│   │   ├── command_utils.rs    # Error formatting, usage logging
-│   │   ├── webhooks.rs         # Base webhook types and sender
-│   │   ├── error_webhook.rs    # Error reporting via webhook
-│   │   ├── join_guild_webhook.rs
-│   │   ├── leave_guild_webhook.rs
-│   │   ├── prefix_command_webhook.rs
-│   │   ├── ready_webhook.rs
-│   │   └── slash_command_webhook.rs
-│   ├── database/               # MongoDB connection
-│   │   ├── mod.rs
-│   │   └── mongo.rs
-│   ├── events/                 # Discord event handlers
-│   │   ├── mod.rs
-│   │   ├── error.rs
-│   │   ├── guild_create.rs
-│   │   ├── guild_delete.rs
-│   │   ├── interaction_create.rs
-│   │   ├── message_create.rs
-│   │   └── ready.rs
-│   ├── handlers/               # Loaders and registrars
-│   │   ├── mod.rs
-│   │   ├── anticrash.rs        # Panic hook setup
-│   │   ├── commands.rs         # Slash command loader
-│   │   ├── events.rs           # Event registry
-│   │   ├── logger.rs           # Startup report
-│   │   ├── models.rs           # Model loader
-│   │   └── prefix.rs           # Prefix command loader
-│   ├── models/                 # Data models
-│   │   ├── mod.rs
-│   │   └── user.rs
-│   └── commands/               # Command implementations
-│       ├── mod.rs
-│       ├── slash/public/ping.rs
-│       └── prefix/public/ping.rs
+Discord-Handler-Rs/
+├── Cargo.toml                    # Rust project configuration and dependencies
+├── src/                          # Source code
+│   ├── main.rs                   # Main bot entry point
+│   ├── config.rs                 # Bot configuration from .env
+│   ├── bot.rs                    # Bot initialization
+│   ├── Core/                     # Core utilities
+│   │   ├── commandUtils.rs       # Cooldown and utilities
+│   │   ├── emojis.rs             # Centralized emoji definitions
+│   │   └── webhookUtil.rs        # Webhook utility
+│   ├── Database/
+│   │   └── mongo.rs              # MongoDB connection setup
+│   ├── Events/                   # Discord event handlers
+│   │   ├── guildCreate.rs        # Handler when bot joins a server
+│   │   ├── guildDelete.rs        # Handler when bot leaves a server
+│   │   ├── interactionCreate.rs  # Handles slash command interactions
+│   │   ├── messageCreate.rs      # Handles prefix commands
+│   │   └── ready.rs              # Bot ready event
+│   ├── Handlers/                 # Handlers for modularity
+│   │   ├── AntiCrash.rs          # Crash prevention and error handling
+│   │   └── logger.rs             # Logger for bot activity
+│   ├── Models/
+│   │   └── userModel.rs          # User data model
+│   └── Commands/
+│       ├── Prefix/               # Prefix commands
+│       │   └── ping.rs           # Example prefix ping command
+│       └── Slash/                # Slash commands
+│           └── ping.rs           # Example slash ping command
 ```
 
-## Installation
+## 🔧 Installation
 
 1. **Clone the repository**
 
@@ -71,62 +55,73 @@ Discord-Handler/
    cd Discord-Handler-Rs
    ```
 
-2. **Environment Setup**
-
-   Copy `.env.example` to `.env` and fill in your values:
-
-   ```bash
-   cp .env.example .env
-   ```
-
-   Edit `.env` with your bot token and configuration:
-
-   ```
-   TOKEN=your_bot_token
-   CLIENT_ID=your_client_id
-   BOT_NAME=Discord Handler
-   PREFIX=$
-   MONGODB_URI=mongodb://localhost:27017/discord_bot
-   ERROR_WEBHOOK=your_webhook_url
-   SLASH_WEBHOOK=your_webhook_url
-   PREFIX_WEBHOOK=your_webhook_url
-   JOIN_WEBHOOK=your_webhook_url
-   LEAVE_WEBHOOK=your_webhook_url
-   READY_WEBHOOK=your_webhook_url
-   ```
-
-3. **Build and run**
+2. **Build dependencies**
 
    ```bash
    cargo build --release
+   ```
+
+3. **Environment Setup**
+
+   Copy `.env.example` to `.env` and fill in your values:
+
+   ```env
+   TOKEN=your_bot_token_here
+   PREFIX=!
+   BOT_NAME=Discord Handler
+   MONGO_URI=mongodb://localhost:27017/discord-handler
+   ERROR_WEBHOOK=https://discord.com/api/webhooks/your_webhook
+   GUILD_LOG_WEBHOOK=https://discord.com/api/webhooks/your_webhook
+   ```
+
+4. **Run the bot**
+
+   ```bash
    cargo run --release
    ```
 
-## Dependencies
+## 📋 Dependencies
 
-- **serenity**: Discord API wrapper for Rust
-- **tokio**: Async runtime
-- **mongodb**: Official MongoDB driver
-- **reqwest**: HTTP client for webhooks
-- **chrono**: Date and time handling
-- **serde / serde_json**: Serialization
+- **serenity**: v0.12 - Discord API wrapper
+- **tokio**: v1 - Async runtime
+- **dotenv**: v0.15 - Environment variable management
+- **mongodb**: v2.3 - MongoDB driver
+- **reqwest**: v0.11 - HTTP client for webhooks
+- **serde_json**: v1 - JSON serialization
 
-## Command Development
+## 📝 Command Development
 
 ### Creating Slash Commands
 
-1. Create a new file in `src/commands/slash/public/` (or a new category folder)
-2. Add a variant to `SlashCommandHandler` enum in `src/bot.rs`
-3. Implement the `register` function and `handle` function
-4. Add the match arm in `src/events/interaction_create.rs`
+Create a new file in `src/Commands/Slash/[category]/[name].rs`:
+
+```rust
+use serenity::all::*;
+use crate::Handler;
+
+pub async fn run(ctx: &Context, interaction: &CommandInteraction) -> Result<(), SerenityError> {
+    interaction
+        .create_response(&ctx.http, CreateInteractionResponse::Message(
+            CreateInteractionResponseMessage::new().content("Pong! 🏓"),
+        ))
+        .await?;
+    Ok(())
+}
+```
 
 ### Creating Prefix Commands
 
-1. Create a new file in `src/commands/prefix/public/` (or a new category folder)
-2. Add a variant to `PrefixCommandHandler` enum in `src/bot.rs`
-3. Implement the `register` function and `handle` function
-4. Add the match arm in `src/events/message_create.rs`
+Create a new file in `src/Commands/Prefix/[category]/[name].rs`:
 
-## License
+```rust
+use serenity::all::*;
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+pub async fn run(ctx: &Context, msg: &Message, args: Vec<&str>) -> Result<(), SerenityError> {
+    msg.channel_id.say(&ctx.http, "Pong! 🏓").await?;
+    Ok(())
+}
+```
+
+---
+
+**Discord Handler** - A modern, scalable Discord bot framework built with Rust.
