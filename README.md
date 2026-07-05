@@ -124,4 +124,4 @@ pub async fn run(ctx: &Context, msg: &Message, args: Vec<&str>) -> Result<(), Se
 
 ---
 
-**Discord Handler** - A modern, scalable Discord bot framework built with Rust.
+**Discord Handler** — Built by **Mtrx** — Discord: **0hu2**
