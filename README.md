@@ -1,8 +1,8 @@
-# Discord Handler (TypeScript)
+# Discord Handler TypeScript
 
 A modern, feature-rich Discord bot handler built with **Discord.js v14** and **TypeScript**, featuring both slash commands and prefix commands with a robust modular architecture designed for scalability and maintainability.
 
-## Features
+## 🚀 Features
 
 - **Dual Command System**: Support for both slash commands and prefix commands
 - **Modular Architecture**: Clean separation of concerns with dedicated handlers
@@ -14,13 +14,12 @@ A modern, feature-rich Discord bot handler built with **Discord.js v14** and **T
 - **Cooldown System**: Per-command cooldown management
 - **Environment Configuration**: Secure configuration management with dotenv
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 Discord-Handler/
 ├── package.json                  # Project dependencies and scripts
 ├── tsconfig.json                 # TypeScript configuration
-├── .gitignore
 ├── src/                          # TypeScript source code
 │   ├── index.ts                  # Main bot entry point
 │   ├── config.ts                 # Bot configuration
@@ -57,7 +56,7 @@ Discord-Handler/
 │       └── Slash/Public/ping.ts
 ```
 
-## Installation
+## 🔧 Installation
 
 1. **Clone the repository**
 
@@ -76,7 +75,7 @@ Discord-Handler/
 
    Edit `src/config.ts` with your values:
 
-   ```ts
+   ```typescript
    token: "your_bot_token",
    clientId: "your_client_id",
    botName: "Discord Handler",
@@ -99,7 +98,7 @@ Discord-Handler/
    npm start      # Run built version
    ```
 
-## Dependencies
+## 📋 Dependencies
 
 - **discord.js**: ^14 - Discord API wrapper
 - **mongoose**: ^8 - MongoDB ODM
@@ -107,13 +106,13 @@ Discord-Handler/
 - **chalk**: ^5 - Terminal colors
 - **boxen**: ^8 - Boxed UI for startup report
 
-## Command Development
+## 📝 Command Development
 
 ### Creating Slash Commands
 
 Create a new file in `src/Commands/Slash/[category]/[name].ts`:
 
-```ts
+```typescript
 import { SlashCommandBuilder } from "discord.js";
 import type { ExtendedClient } from "../../types.js";
 
@@ -132,7 +131,7 @@ export default {
 
 Create a new file in `src/Commands/Prefix/[category]/[name].ts`:
 
-```ts
+```typescript
 import type { ExtendedClient } from "../../types.js";
 
 export default {
